@@ -1,4 +1,4 @@
-function install_fisher -d "installs jorgebucaran/fisher"
+function _install_fisher -d "installs jorgebucaran/fisher"
     echo "attempting to install jorgebucaran/fisher"
     if command curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
         echo "fisher installed successfully"
@@ -7,7 +7,7 @@ function install_fisher -d "installs jorgebucaran/fisher"
     end
 end
 
-function install_plugins -d "installs fish plugins"
+function _install_plugins -d "installs fish plugins"
     set plugins -l Gazorby/fish-abbreviation-tips jorgebucaran/fish-bax franciscolourenco/done jorgebucaran/fish-spark joseluisq/gitnow@2.3.0 laughedelic/pisces jorgebucaran/fish-nvm jethrokuan/z
 
     echo "attempting to install fish plugins"
@@ -16,7 +16,7 @@ function install_plugins -d "installs fish plugins"
     end
 end
 
-function install_kitty -d "installs kitty shell"
+function _install_kitty -d "installs kitty shell"
     echo "attempting to install kitty"
     if command curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
         echo "kitty installed successfully"
@@ -25,7 +25,7 @@ function install_kitty -d "installs kitty shell"
     end
 end
 
-function kitty_setup -d "kitty desktop integration"
+function _kitty_setup -d "kitty desktop integration"
     echo "setting up kitty shell"
     # Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
     # your PATH)
@@ -36,7 +36,7 @@ function kitty_setup -d "kitty desktop integration"
     sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
 end
 
-function kitty_conf -d "installs kitty conf"
+function _kitty_conf -d "installs kitty conf"
     set -l dl_file "~/.config/kitty/kitty.conf"
     set -l url "https://gist.githubusercontent.com/g5becks/8cb4a040dbb10b516ba6b5eeaf2abbc5/raw/5c8ba08a625f7025487bed992228594d328f0ef6/kitty.conf"
     echo "attempting to download kitty conf"
@@ -47,7 +47,7 @@ function kitty_conf -d "installs kitty conf"
     end
 end
 
-function kitty_theme -d "sets kitty theme"
+function _kitty_theme -d "sets kitty theme"
     set -l dl_file "~/.config/kitty/theme.conf"
     set -l url "https://gist.githubusercontent.com/g5becks/d7f0cae5643e5b8b4ea948bb8c640b96/raw/063f02eeff9f36e46ab68f39ba6c006ca1a97c43/theme.conf"
     echo "attempting to download kitty theme"
@@ -58,7 +58,7 @@ function kitty_theme -d "sets kitty theme"
     end
 end
 
-function download_hasklug -d "downloads hasklug_nerd_font"
+function _download_hasklug -d "downloads hasklug_nerd_font"
     set -l url "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hasklig.zip"
     set -l dl_file "~/Downloads/hasklig.zip"
     echo "attempting to download hasklig nerd font"
@@ -70,7 +70,7 @@ function download_hasklug -d "downloads hasklug_nerd_font"
 
 end
 
-function download_cartograph -d "downloads cartograph ch font"
+function _download_cartograph -d "downloads cartograph ch font"
     set -l url "http://download1074.mediafire.com/8tscikxkwasg/c4g1crf1d0hps9b/Cartograph.zip"
     set -l dl_file "~/Downloads/cartograph.zip"
     echo "attempting to download cartograph font"
@@ -81,7 +81,7 @@ function download_cartograph -d "downloads cartograph ch font"
     end
 end
 
-function unzip_fonts -d "unzip all font packages"
+function _unzip_fonts -d "unzip all font packages"
     set -l files ~/Downloads/cartograph.zip ~/Downloads/hasklig.zip
     echo "unzipping files"
     for font in $files
@@ -93,14 +93,14 @@ function unzip_fonts -d "unzip all font packages"
     end
 end
 
-function install_fonts -d "installs all downloaded fonts"
+function _install_fonts -d "installs all downloaded fonts"
     set -l fonts ~/Downloads/fonts/*.otf
     set -l fonts_dir ~/.local/share/fonts/
     set -l trash ~/Downloads/fonts/ ~/Downloads/cartograph.zip ~/Downloads/hasklig.zip
 
-    download_hasklug
-    download_cartograph
-    unzip_fonts
+    _download_hasklug
+    _download_cartograph
+    _unzip_fonts
     if test -e $fonts_dir
         echo "moving fonts to fonts directory"
         command cp $fonts $fonts_dir
@@ -123,7 +123,7 @@ function install_fonts -d "installs all downloaded fonts"
     end
 end
 
-function install_snapd -d "installs snapd"
+function _install_snapd -d "installs snapd"
     echo "updating packages"
     command apt update
     echo "installing snapd"
@@ -134,7 +134,7 @@ function install_snapd -d "installs snapd"
     end
 end
 
-function install_vscode -d "installs visual studio code"
+function _install_vscode -d "installs visual studio code"
     echo "installing visual studio code"
     if command sudo snap install code-insiders --classic
         echo "visual studio code installed"
@@ -143,7 +143,7 @@ function install_vscode -d "installs visual studio code"
     end
 end
 
-function install_android_studio -d "installs android studio"
+function _install_android_studio -d "installs android studio"
     echo "installing android studio"
     if command snap install android-studio --classic
         echo "android studio installed"
@@ -152,7 +152,7 @@ function install_android_studio -d "installs android studio"
     end
 end
 
-function install_remmina -d "installs remmina"
+function _install_remmina -d "installs remmina"
     echo "installing remmina"
     if command snap install remmina
         echo "remmina installed"
@@ -161,7 +161,7 @@ function install_remmina -d "installs remmina"
     end
 end
 
-function install_typora -d "installs typora"
+function _install_typora -d "installs typora"
     echo "installing typora"
     if command snap install typora-alanzanattadev
         echo "typora installed"
@@ -170,7 +170,7 @@ function install_typora -d "installs typora"
     end
 end
 
-function install_insomnia -d "installs insomnia"
+function _install_insomnia -d "installs insomnia"
     echo "installing insomnia"
     if command snap install insomnia
         echo "insomnia installed"
@@ -180,7 +180,7 @@ function install_insomnia -d "installs insomnia"
 
 end
 
-function install_docker -d "installs docker"
+function _install_docker -d "installs docker"
     echo "installing docker"
     if command snap install docker
         echo "docker installed"
@@ -189,7 +189,7 @@ function install_docker -d "installs docker"
     end
 end
 
-function install_table_plus -d "installs tableplus"
+function _install_table_plus -d "installs tableplus"
     # Add TablePlus gpg key
     echo "adding tableplus gpg key"
     if command wget -O - -q http://deb.tableplus.com/apt.tableplus.com.gpg.key | apt-key add -
@@ -212,7 +212,7 @@ function install_table_plus -d "installs tableplus"
 
 end
 
-function install_zeal -d "installs zeal"
+function _install_zeal -d "installs zeal"
     echo "adding zeal repo"
     command add-apt-repository ppa:zeal-developers/ppa
     echo "updating packages"
@@ -225,7 +225,7 @@ function install_zeal -d "installs zeal"
     end
 end
 
-function install_htop -d "installs htop"
+function _install_htop -d "installs htop"
     echo "installing htop"
     if command snap install htop
         echo "htop installed"
@@ -234,7 +234,7 @@ function install_htop -d "installs htop"
     end
 end
 
-function install_fzf -d "install fzf"
+function _install_fzf -d "install fzf"
     echo "installing fzf"
     if command apt install fzf
         echo "fzf installed"
@@ -243,7 +243,7 @@ function install_fzf -d "install fzf"
     end
 end
 
-function install_starship -d "install starship prompt"
+function _install_starship -d "install starship prompt"
 
     echo "installing starship prompt"
     if command snap install starship
@@ -253,7 +253,7 @@ function install_starship -d "install starship prompt"
     end
 end
 
-function starship_config -d "downloads starship config"
+function _starship_config -d "downloads starship config"
     set -l url "https://gist.githubusercontent.com/g5becks/27e40cf371c2e0afd859873a59632ff2/raw/15f128154ef5059bec5fdd47e5ff9632f673b9b5/starship.toml"
     echo "downloading starship config"
 
@@ -266,7 +266,7 @@ function starship_config -d "downloads starship config"
     end
 end
 
-function install_digital_ocean_cli -d "installs digital ocean cli"
+function _install_digital_ocean_cli -d "installs digital ocean cli"
     echo "installing digital ocean cli"
     if command snap install doctl
         echo "digital ocean cli installed successfully"
@@ -275,7 +275,7 @@ function install_digital_ocean_cli -d "installs digital ocean cli"
     end
 end
 
-function install_postges -d "installs postgres"
+function _install_postges -d "installs postgres"
     echo "installing postgres"
     if command snap install postgresql
         echo "postgres installed successfully"
@@ -284,7 +284,7 @@ function install_postges -d "installs postgres"
     end
 end
 
-function install_ruby -d "installs ruby"
+function _install_ruby -d "installs ruby"
     echo "installing ruby"
     if command snap install ruby --classic
         echo "ruby installed successfully"
@@ -292,7 +292,7 @@ function install_ruby -d "installs ruby"
         echo "failed to install ruby"
     end
 end
-function install_colorls -d "installs colorls"
+function _install_colorls -d "installs colorls"
     echo "installing colorls"
     if command gem install colorls
         echo "colorls installed successfully"
@@ -301,7 +301,7 @@ function install_colorls -d "installs colorls"
     end
 end
 
-function install_go -d "installs golang"
+function _install_go -d "installs golang"
     echo "installing golang"
     if command snap install --classic go
         echo "golang installed successfully"
@@ -310,7 +310,7 @@ function install_go -d "installs golang"
     end
 end
 
-function install_gotask -d "installs taskfile.dev"
+function _install_gotask -d "installs taskfile.dev"
     echo "installing taskfile.dev"
     if command snap install task --classic
         echo "taskfile.dev installed successfully"
@@ -319,7 +319,7 @@ function install_gotask -d "installs taskfile.dev"
     end
 end
 
-function install_dart -d "installs dart"
+function _install_dart -d "installs dart"
     echo "installing dart"
     command apt install apt-transport-https
     echo "obtaining gpg key"
@@ -336,7 +336,7 @@ function install_dart -d "installs dart"
     end
 end
 
-function install_flutter -d "installs flutter"
+function _install_flutter -d "installs flutter"
     echo "installing flutter"
     if command snap install flutter --classic
         echo "flutter installed successfully"
@@ -345,7 +345,7 @@ function install_flutter -d "installs flutter"
     end
 end
 
-function install_node -d "installs nodejs"
+function _install_node -d "installs nodejs"
     echo "installing nodejs"
     if command snap install node --classic
         echo "nodejs installed successfully"
@@ -354,7 +354,7 @@ function install_node -d "installs nodejs"
     end
 end
 
-function install_firework -d "installs firework"
+function _install_firework -d "installs firework"
     set -l url "https://cdn-firework.com/fw/download/packages/Firework-linux-x64.zip"
     set -l dl_file "~/Downloads/firework.zip"
     echo "downloading firework"
@@ -366,34 +366,34 @@ function install_firework -d "installs firework"
 end
 
 function setup_machine -d "installs all apps and tools on a new machine"
-    install_fisher
-    install_plugins
-    install_kitty
-    kitty_setup
-    kitty_conf
-    kitty_theme
-    install_fonts
-    install_snapd
-    install_android_studio
-    install_vscode
-    install_remmina
-    install_typora
-    install_insomnia
-    install_docker
-    install_table_plus
-    install_zeal
-    install_htop
-    install_fzf
-    install_starship
-    starship_config
-    install_digital_ocean_cli
-    install_postges
-    install_ruby
-    install_colorls
-    install_go
-    install_gotask
-    install_dart
-    install_flutter
-    install_node
-    install_firework
+    _install_fisher
+    _install_plugins
+    _install_kitty
+    _kitty_setup
+    _kitty_conf
+    _kitty_theme
+    _install_fonts
+    _install_snapd
+    _install_android_studio
+    _install_vscode
+    _install_remmina
+    _install_typora
+    _install_insomnia
+    _install_docker
+    _install_table_plus
+    _install_zeal
+    _install_htop
+    _install_fzf
+    _install_starship
+    _starship_config
+    _install_digital_ocean_cli
+    _install_postges
+    _install_ruby
+    _install_colorls
+    _install_go
+    _install_gotask
+    _install_dart
+    _install_flutter
+    _install_node
+    _install_firework
 end
