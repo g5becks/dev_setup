@@ -365,7 +365,7 @@ function _install_firework -d "installs firework"
     end
 end
 
-function setup_machine -d "installs all apps and tools on a new machine"
+function setup -d "installs all apps and tools on a new machine"
     _install_fisher
     _install_plugins
     _install_kitty
