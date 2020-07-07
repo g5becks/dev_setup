@@ -60,9 +60,9 @@ end
 
 function download_hasklug -d "downloads hasklug_nerd_font"
     set -l url "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hasklig.zip"
-    set -l file "~/Downloads/hasklig.zip"
+    set -l dl_file "~/Downloads/hasklig.zip"
     echo "attempting to download hasklig nerd font"
-    if command curl $url >$file
+    if command curl $url >$dl_file
         echo "hasklug_nerd_font downloaded successfully"
     else
         "hasklig download failed"
@@ -72,9 +72,9 @@ end
 
 function download_cartograph -d "downloads cartograph ch font"
     set -l url "http://download1074.mediafire.com/8tscikxkwasg/c4g1crf1d0hps9b/Cartograph.zip"
-    set -l file "~/Downloads/cartograph.zip"
+    set -l dl_file "~/Downloads/cartograph.zip"
     echo "attempting to download cartograph font"
-    if command curl $url >$file
+    if command curl $url >$dl_file
         echo "cartograph font downloaded successfully"
     else
         echo "failed to download cartograph font"
@@ -84,11 +84,11 @@ end
 function unzip_fonts -d "unzip all font packages"
     set -l files ~/Downloads/cartograph.zip ~/Downloads/hasklig.zip
     echo "unzipping files"
-    for file in $files
-        if command unzip $file -d ~/Downloads/fonts
-            echo "$file unzipped"
+    for font in $files
+        if command unzip $font -d ~/Downloads/fonts
+            echo "$font unzipped"
         else
-            echo "failed to unzip $file"
+            echo "failed to unzip $font"
         end
     end
 end
@@ -97,6 +97,10 @@ function install_fonts -d "installs all downloaded fonts"
     set -l fonts ~/Downloads/fonts/*.otf
     set -l fonts_dir ~/.local/share/fonts/
     set -l trash ~/Downloads/fonts/ ~/Downloads/cartograph.zip ~/Downloads/hasklig.zip
+
+    download_hasklug
+    download_cartograph
+    unzip_fonts
     if test -e $fonts_dir
         echo "moving fonts to fonts directory"
         command cp $fonts $fonts_dir
@@ -368,4 +372,28 @@ function setup_machine -d "installs all apps and tools on a new machine"
     kitty_setup
     kitty_conf
     kitty_theme
+    install_fonts
+    install_snapd
+    install_android_studio
+    install_vscode
+    install_remmina
+    install_typora
+    install_insomnia
+    install_docker
+    install_table_plus
+    install_zeal
+    install_htop
+    install_fzf
+    install_starship
+    starship_config
+    install_digital_ocean_cli
+    install_postges
+    install_ruby
+    install_colorls
+    install_go
+    install_gotask
+    install_dart
+    install_flutter
+    install_node
+    install_firework
 end
